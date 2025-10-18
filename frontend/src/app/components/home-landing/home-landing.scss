@@ -1,0 +1,141 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #444444;
+  background: #ffffff;
+}
+
+.navbar {
+  background: #5a3b2e; 
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar .brand {
+  color: #ffffff;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.navbar .menu {
+  display: flex;
+}
+
+.navbar .menu .menu-link {
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 15px;
+  font-size: 16px;
+}
+
+.navbar .menu .menu-link:hover {
+  text-decoration: underline;
+}
+
+.landing {
+  max-width: 1200px;
+  margin: 60px auto 40px; 
+  padding: 0 20px;
+}
+
+.landing .hero {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.landing .hero .hero-text {
+  flex: 1;
+}
+
+.landing .hero .hero-text h1 {
+  font-size: 44px;
+  color: #6b4226; 
+  margin-bottom: 15px;
+}
+
+.landing .hero .hero-text .highlight {
+  color: #5a3b2e; 
+}
+
+.landing .hero .hero-text p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.landing .hero .hero-text .btn-primary {
+  padding: 12px 24px;
+  font-size: 16px;
+  background: #6b4226;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.landing .hero .hero-text .btn-primary:hover {
+  background: #5a3b2e;
+}
+
+.landing .hero .hero-image {
+  flex: 1;
+}
+
+.landing .hero .hero-image img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.landing .features {
+  text-align: center;
+}
+
+.landing .features h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #000000;
+}
+
+.landing .features .grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.landing .features .grid .card {
+  flex: 1 1 240px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+}
+
+.landing .features .grid .card img {
+  width: 60px;
+  margin-bottom: 15px;
+}
+
+.landing .features .grid .card h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #6b4226;
+}
+
+.landing .features .grid .card p {
+  font-size: 16px;
+  color: #444444;
+}
