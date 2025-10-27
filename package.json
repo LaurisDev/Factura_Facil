@@ -1,0 +1,26 @@
+{
+  "name": "factura_facil",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run start --prefix frontend\" \"npm run start:dev --prefix backend\"",
+    "start:front": "npm run start --prefix frontend",
+    "start:back": "npm run start:dev --prefix backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LaurisDev/Factura_Facil.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LaurisDev/Factura_Facil/issues"
+  },
+  "homepage": "https://github.com/LaurisDev/Factura_Facil#readme",
+  "dependencies": {
+    "@nestjs/config": "^4.0.2",
+    "concurrently": "^9.2.1"
+  }
+}
