@@ -5,9 +5,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-//lo que espera el backend para el REGISTRO
+//lo que espera el backend para el REGISTRO Y LOGIN
 export interface RegisterPayload {
   name: string;
+  email: string;
+  password: string;
+}
+
+export interface LoginPayload{
   email: string;
   password: string;
 }
@@ -20,5 +25,9 @@ export class AuthService {
 
   register(payload: RegisterPayload): Observable<any> {
     return this.http.post(`${this.base}/auth/register`, payload);
+  }
+
+  login(payload: LoginPayload): Observable<any>{
+    return this.http.post(`${this.base}/auth/login`, payload)
   }
 }

@@ -1,0 +1,37 @@
+<!-- Navbar simple para consistencia visual -->
+<header class="navbar">
+  <div class="container">
+    <a class="brand" routerLink="/">Factura Fácil</a>
+  </div>
+</header>
+
+<main class="login">
+  <h1>Iniciar sesión</h1>
+
+  <form [formGroup]="LoginForm" (ngSubmit)="submit()">
+    <label>
+      Email
+      <input type="email" formControlName="email" />
+    </label>
+    <div class="error" *ngIf="c.email.touched && c.email.invalid">
+      Email inválido
+    </div>
+
+    <label>
+      Contraseña
+      <input type="password" formControlName="password" />
+    </label>
+    <div class="error" *ngIf="c.password.touched && c.password.invalid">
+      Mínimo 6 caracteres
+    </div>
+
+    <button class="btn-primary" [disabled]="loading">
+      {{ loading ? 'Entrando...' : 'Ingresar' }}
+    </button>
+
+    <p class="alt">
+      ¿No tienes cuenta?
+      <a routerLink="/register">Crear cuenta</a>
+    </p>
+  </form>
+</main>
