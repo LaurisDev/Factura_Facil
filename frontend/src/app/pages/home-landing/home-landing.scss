@@ -12,11 +12,9 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
 }
 
 .navbar .container {
-  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -25,29 +23,21 @@ body {
 
 .navbar .brand {
   color: #ffffff;
-  font-size: 24px;
+  font-size: 26px;
   text-decoration: none;
+  margin: 8px;
 }
 
 .navbar .menu {
   display: flex;
 }
 
-.navbar .menu .menu-link {
-  color: #ffffff;
-  text-decoration: none;
-  margin-left: 15px;
-  font-size: 16px;
-}
-
-.navbar .menu .menu-link:hover {
-  text-decoration: underline;
-}
 
 .landing {
   max-width: 1200px;
   margin: 60px auto 40px; 
   padding: 0 20px;
+  text-align: center;
 }
 
 .landing .hero {

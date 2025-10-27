@@ -17,7 +17,7 @@
   label {
     display: grid;
     gap: 6px;
-    font-size: 14px;
+    font-size: 20px;
   }
 
   input {
@@ -54,7 +54,13 @@
   top: 0; left: 0; width: 100%; z-index: 1000;
 }
 .navbar .container {
-  max-width: 1200px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
+  margin: 0 auto;
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
 }
-.navbar .brand { color: #fff; font-size: 24px; text-decoration: none; }
+.navbar .brand { 
+  color: #fff; 
+  font-size: 24px; 
+  text-decoration: none; 
+}
