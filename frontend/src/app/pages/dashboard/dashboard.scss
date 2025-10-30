@@ -1,0 +1,28 @@
+.dashboard-container {
+  text-align: center;
+  margin-top: 50px;
+  color: #3b2314;
+}
+
+.card-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #fff7f0;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 250px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    transform: translateY(-5px);
+    background: #fcebd6;
+  }
+}
