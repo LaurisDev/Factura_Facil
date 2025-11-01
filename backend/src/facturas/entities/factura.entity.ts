@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Factura {
@@ -17,6 +17,6 @@ export class Factura {
   @Column()
   descripcion: string;
 
-  @CreateDateColumn()
-  fechaCreacion: Date;
+  @Column({ type: 'text' })
+  fechaCreacion: string;
 }
