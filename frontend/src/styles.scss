@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;          /*  elimina el borde blanco alrededor de toda la página */
+  padding: 0;
+  background: #fff;  
+}

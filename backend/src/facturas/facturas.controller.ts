@@ -1,19 +1,29 @@
-import { Controller, Post, Get, Body } from '@nestjs/common';
-import { FacturasService } from './facturas.service';
-import { Factura } from './entities/factura.entity';
+// define rutas 
+// solo RECIBE/RETORNA datos y llama al service- ACA NO SE CALCULA 
 
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { FacturasService } from './facturas.service';
+import { CreateFacturaDto } from './dto/create-factura.dto';
 
 @Controller('facturas')
 export class FacturasController {
-  constructor(private readonly facturasService: FacturasService) {}
+  constructor(private readonly service: FacturasService) {}
 
+  // POST crear una factura
   @Post()
-  async crearFactura(@Body() data: Partial<Factura>) {
-    return this.facturasService.crearFactura(data);
+  create(@Body() dto: CreateFacturaDto) {
+    return this.service.create(dto);
   }
 
+  //listar todas
   @Get()
-  async obtenerFacturas() {
-    return this.facturasService.obtenerFacturas();
+  findAll() {
+    return this.service.findAll();
+  }
+
+  // GET traer una
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.service.findOne(id);
   }
 }
