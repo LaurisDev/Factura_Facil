@@ -31,7 +31,7 @@ export const routes: Routes = [
   {
     path: "facturas",
     loadComponent: () =>
-      import("./pages/facturas/facturas").then((m) => m.Facturas),
+      import("./pages/facturas/facturas").then((m) => m.CrearFacturaComponent),
   },
 
   {

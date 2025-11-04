@@ -1,12 +1,11 @@
 <header class="navbar">
   <div class="container">
     <a class="brand">Factura Fácil</a>
-    <nav>
-      <a routerLink="/facturas">Facturas</a>
-      <a routerLink="/produccion">Producción</a>
-      <a routerLink="/documentos">Documentos</a>
-      <a routerLink="/login" (click)="logout()">Cerrar sesión</a>
+
+    <nav class="logout">
+      <a  routerLink="/login" (click)="logout()">Cerrar sesión</a>
     </nav>
+    
   </div>
 </header>
 

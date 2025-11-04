@@ -1,48 +1,107 @@
-import { Component } from '@angular/core';
-import { NgFor, DatePipe, CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+
+
+import { Component, WritableSignal, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink, Router } from '@angular/router';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { CreateFacturaDto, FacturasService } from '../../services/facturas.service';
+
+// Opciones visibles para select------------------------------------
+const TIPO_FACTURA_OPTIONS = [
+  { value: 'FV-1', label: 'FV-1 · Factura de venta No' },
+  { value: 'FV-2', label: 'FV-2 · Factura electrónica' },
+] as const;
+
+const PRODUCT_OPTIONS = [
+  { value: 'CAJA_BUEN_SABOR', label: 'Caja de panela Buen Sabor', unitPrice: 128 },
+  { value: 'CAJA_BUEN_DECANA', label: 'Caja de panela Buen de Caña', unitPrice: 135 },
+] as const;
+
+const FORMA_PAGO_OPTIONS = [
+  { value: 'EFECTIVO', label: 'Efectivo' },
+  { value: 'TRANSFERENCIA', label: 'Transferencia' },
+] as const;
+
+//-------------------------------------------------------------------
 
 @Component({
-  selector: 'app-facturas',
-  templateUrl: './facturas.html',
-  styleUrls: ['./facturas.scss'],
+  selector: 'app-crear-factura',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgFor]
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  templateUrl: './facturas.html',
+  styleUrl: './facturas.scss',
 })
-export class Facturas {
-  facturas: any[] = [];
-  factura = {
-    numero: '',
-    cliente: '',
-    monto: 0,
-    descripcion: '',
-    fechaCreacion: '' // tipo texto
-  };
+export class CrearFacturaComponent {
+  loading = false;
 
-  constructor(private http: HttpClient) {}
+  readonly tipoOptions = TIPO_FACTURA_OPTIONS;
+  readonly productoOptions = PRODUCT_OPTIONS;
+  readonly formaPagoOptions = FORMA_PAGO_OPTIONS;
 
-  registrarFactura() {
-    if (!this.factura.numero || !this.factura.cliente || !this.factura.monto) {
-      alert('Por favor completa todos los campos requeridos');
+  form: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private api: FacturasService,
+    private router: Router
+  ) {
+    this.form = this.fb.group({
+      tipo: [null, [Validators.required]],                       
+      numero: ['', [Validators.required, Validators.maxLength(50)]],
+      cliente: ['', [Validators.required, Validators.maxLength(150)]],
+      contacto: ['', [Validators.required, Validators.maxLength(50)]],
+      fechaCreacion: ['', [Validators.required]],                
+      producto: [null, [Validators.required]],                   
+      cantidad: [1, [Validators.required, Validators.min(1)]],
+      formaPago: [null, [Validators.required]],                  
+    });
+  }
+
+  get c() {
+    return this.form.controls as {
+      tipo: FormControl<string | null>;
+      numero: FormControl<string>;
+      cliente: FormControl<string>;
+      contacto: FormControl<string>;
+      fechaCreacion: FormControl<string>;
+      producto: FormControl<string | null>;
+      descripcion: FormControl<string>;
+      cantidad: FormControl<number>;
+      formaPago: FormControl<string | null>;
+    };
+  }
+
+  submit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
 
-    
-    if (!this.factura.fechaCreacion) {
-      const fecha = new Date();
-      this.factura.fechaCreacion = `${fecha.getFullYear()}-${fecha.getMonth() + 1}-${fecha.getDate()}`;
-    }
-
-    
-    this.facturas.push({ ...this.factura });
-
-    this.factura = {
-      numero: '',
-      cliente: '',
-      monto: 0,
-      descripcion: '',
-      fechaCreacion: ''
+    this.loading = true;
+ 
+    const payload: CreateFacturaDto = {
+      tipo: this.form.value.tipo as 'FV-1' | 'FV-2',
+      numero: this.form.value.numero!,
+      cliente: this.form.value.cliente!,
+      contacto: this.form.value.contacto!,
+      fechaCreacion: this.form.value.fechaCreacion!, // YYYY-MM-DD
+      producto: this.form.value.producto as 'CAJA_BUEN_SABOR' | 'CAJA_BUEN_DECANA',
+      descripcion: this.form.value.descripcion || undefined,
+      cantidad: this.form.value.cantidad!,
+      formaPago: this.form.value.formaPago as 'EFECTIVO' | 'TRANSFERENCIA',
     };
+
+    this.api.createFactura(payload).subscribe({
+      next: (facturaCreada) => {
+        this.loading = false;
+        alert(`Factura creada \nTotal: ${facturaCreada?.valorTotal ?? '(sin total)'}`);
+        this.router.navigateByUrl('/facturas'); 
+      },
+      error: (err) => {
+        this.loading = false;
+        const msg = err?.error?.message || 'Error creando la factura';
+        alert(msg);
+      },
+    });
   }
 }

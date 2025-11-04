@@ -1,65 +1,76 @@
-<div class="facturas-container">
-  <div class="factura-form">
-    <h2>Registrar Factura</h2>
-    <p class="subtitle">
-      Lleva el control de tu negocio sin papeles y sin enredos.
-    </p>
+<header class="navbar">
+  <a class="brand" routerLink="/">Factura Fácil</a>
+  <nav><a routerLink="/facturas">Listado</a></nav>
+</header>
 
-    <form (ngSubmit)="registrarFactura()" #facturaForm="ngForm">
-      <div class="form-group">
-        <label for="numero">Número de factura</label>
-        <input
-          type="text"
-          id="numero"
-          [(ngModel)]="factura.numero"
-          name="numero"
-          required
-        />
-      </div>
+<main class="page">
+  <h1>Nueva factura</h1>
 
-      <div class="form-group">
-        <label for="cliente">Cliente</label>
-        <input
-          type="text"
-          id="cliente"
-          [(ngModel)]="factura.cliente"
-          name="cliente"
-          required
-        />
-      </div>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
 
-      <div class="form-group">
-        <label for="monto">Monto</label>
-        <input
-          type="number"
-          id="monto"
-          [(ngModel)]="factura.monto"
-          name="monto"
-          required
-        />
-      </div>
+    <div class="grid">
+      <label>
+        <span>Tipo *</span>
+        <select formControlName="tipo">
+          <option [ngValue]="null" disabled>Seleccione...</option>
+          <option *ngFor="let t of tipoOptions" [value]="t.value">{{ t.label }}</option>
+        </select>
+      </label>
 
-      <div class="form-group">
-        <label for="descripcion">Descripción</label>
-        <textarea
-          id="descripcion"
-          [(ngModel)]="factura.descripcion"
-          name="descripcion"
-          placeholder="Describe brevemente la factura"
-        ></textarea>
-      </div>
+      <label>
+        <span>Número *</span>
+        <input type="text" formControlName="numero" />
+      </label>
 
-      <div class="form-group">
-        <label for="fechaCreacion">Fecha</label>
-        <input
-          type="date"
-          id="fechaCreacion"
-          [(ngModel)]="factura.fechaCreacion"
-          name="fechaCreacion"
-        />
-      </div>
+      <label>
+        <span>Cliente *</span>
+        <input type="text" formControlName="cliente" />
+      </label>
 
-      <button type="submit" class="btn-guardar">Guardar Factura</button>
-    </form>
-  </div>
-</div>
+      <label>
+        <span>Contacto *</span>
+        <input type="text" formControlName="contacto" />
+      </label>
+
+      <label>
+        <span>Fecha de elaboración *</span>
+        <input type="date" formControlName="fechaCreacion" />
+      </label>
+
+      <label>
+        <span>Producto *</span>
+        <select formControlName="producto">
+          <option [ngValue]="null" disabled>Seleccione...</option>
+          <option *ngFor="let p of productoOptions" [value]="p.value">
+            {{ p.label }}
+          </option>
+        </select>
+      </label>
+
+      <label class="col-span-2">
+        <span>Descripción</span>
+        <input type="text" formControlName="descripcion" />
+      </label>
+
+      <label>
+        <span>Cantidad *</span>
+        <input type="number" min="1" formControlName="cantidad" />
+      </label>
+
+      <label>
+        <span>Forma de pago *</span>
+        <select formControlName="formaPago">
+          <option [ngValue]="null" disabled>Seleccione...</option>
+          <option *ngFor="let f of formaPagoOptions" [value]="f.value">{{ f.label }}</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- Solo texto, sin cálculos en el front -->
+    <div class="totales">
+      El total será calculado por el servidor al guardar.
+    </div>
+
+    <button class="btn" type="submit" [disabled]="loading || form.invalid">Guardar</button>
+  </form>
+</main>
