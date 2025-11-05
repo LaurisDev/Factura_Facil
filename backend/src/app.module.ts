@@ -9,11 +9,10 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { FacturasModule } from './facturas/facturas.module';
-import { ProduccionModule } from './produccion/produccion.module';
 import { DocumentosModule } from './documentos/documentos.module';
 import { Factura } from './facturas/entities/factura.entity';
 import { Documento } from './documentos/entities/documento.entity'; // ✅ importa tu entidad
-import { Produccion } from './produccion/entities/produccion.entity';
+
 
 @Module({
   imports: [
@@ -32,7 +31,7 @@ import { Produccion } from './produccion/entities/produccion.entity';
           username: cfg.get<string>('DB_USER'),
           password: cfg.get<string>('DB_PASS'),
           database: cfg.get<string>('DB_NAME'),
-          entities: [User, Factura, Documento, Produccion], // ✅ agrega Documento aquí
+          entities: [User, Factura, Documento], // ✅ agrega Documento aquí
           synchronize: true, // solo en desarrollo
           ssl: cfg.get<string>('DB_SSL') === 'true' ? { rejectUnauthorized: false } : undefined,
           logging: true,
@@ -45,7 +44,6 @@ import { Produccion } from './produccion/entities/produccion.entity';
     UsersModule,
     AuthModule,
     FacturasModule,
-    ProduccionModule,
     DocumentosModule,
   ],
   controllers: [AppController],

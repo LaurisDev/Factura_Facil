@@ -1,20 +1,70 @@
+/* === NAVBAR === */
+.navbar {
+  background: #5a3b2e; 
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .container {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.navbar .brand {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 700;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.navbar nav {
+  display: flex;
+  align-items: center;
+}
+
+.navbar nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  margin-left: 1.5rem;
+  transition: 0.3s;
+  line-height: 1;
+}
+
+/* === DOCUMENTOS === */
 .documentos-container {
   max-width: 1000px;
-  margin: 2rem auto;
+  margin: 120px auto 2rem; /* bajamos para que no se superponga con el navbar */
   background: #fff;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* Título */
 h2 {
   text-align: center;
   margin-bottom: 1.5rem;
   color: #4b3832;
-  font-family: 'Georgia', serif;
+  font-family: 'Poppins', sans-serif; 
+  font-size: 24px;
+  font-weight: 700;
 }
 
+/* Caja de búsqueda */
 .search-box {
   display: flex;
   justify-content: center;
@@ -45,7 +95,7 @@ h2 {
   background-color: #3a2e2a;
 }
 
-/* ✅ Ajustes para que la tabla no se desborde */
+/* ✅ Tabla de documentos */
 .tabla-documentos {
   width: 100%;
   max-width: 100%;
@@ -85,6 +135,7 @@ h2 {
   background-color: #5a3f2c;
 }
 
+/* Estados */
 .loading {
   text-align: center;
   color: #6f4e37;
