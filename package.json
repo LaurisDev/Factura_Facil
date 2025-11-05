@@ -21,6 +21,7 @@
   "homepage": "https://github.com/LaurisDev/Factura_Facil#readme",
   "dependencies": {
     "@nestjs/config": "^4.0.2",
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "pdfkit": "^0.17.2"
   }
 }

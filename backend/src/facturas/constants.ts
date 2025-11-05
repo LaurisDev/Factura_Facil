@@ -1,7 +1,7 @@
 //aca guardamos los valores por defecto 
 //con esto calcularemos y validaremos
 export enum TipoFactura {
-  FV1 = "FV-1 ",
+  FV1 = "FV-1",
   FV2 = "FV-2",
 }
 

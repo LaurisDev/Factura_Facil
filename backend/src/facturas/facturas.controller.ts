@@ -1,27 +1,37 @@
-// define rutas 
-// solo RECIBE/RETORNA datos y llama al service- ACA NO SE CALCULA 
-
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Res } from '@nestjs/common';
 import { FacturasService } from './facturas.service';
 import { CreateFacturaDto } from './dto/create-factura.dto';
+import type { Response } from 'express';
 
 @Controller('facturas')
 export class FacturasController {
   constructor(private readonly service: FacturasService) {}
 
-  // POST crear una factura
+  // Crear una factura
   @Post()
   create(@Body() dto: CreateFacturaDto) {
     return this.service.create(dto);
   }
 
-  //listar todas
+  // Listar todas
   @Get()
   findAll() {
     return this.service.findAll();
   }
 
-  // GET traer una
+  // 🔹 Buscar por número o cliente — debe ir **antes de :id**
+  @Get('buscar')
+  buscar(@Query('query') query: string) {
+    return this.service.buscar(query);
+  }
+
+  // 🔹 Descargar factura PDF
+  @Get('descargar/:id')
+  descargar(@Param('id') id: string, @Res() res: Response) {
+    return this.service.descargarPDF(id, res);
+  }
+
+  // Obtener una sola factura por ID
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.service.findOne(id);

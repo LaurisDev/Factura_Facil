@@ -1,1 +1,49 @@
-<p>documentos works!</p>
+<div class="documentos-container">
+  <h2>Buscar y descargar facturas</h2>
+
+  <div class="search-box">
+    <input
+      type="text"
+      placeholder="Buscar por número o cliente..."
+      [(ngModel)]="query"
+    />
+    <button (click)="buscarFacturas()">Buscar</button>
+  </div>
+
+  <div *ngIf="cargando" class="loading">Cargando...</div>
+
+  <table *ngIf="!cargando && documentos.length > 0" class="tabla-documentos">
+    <thead>
+      <tr>
+        <th>Número</th>
+        <th>Cliente</th>
+        <th>Contacto</th>
+        <th>Fecha</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Valor total</th>
+        <th>Forma de pago</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doc of documentos">
+        <td>{{ doc.numero }}</td>
+        <td>{{ doc.cliente }}</td>
+        <td>{{ doc.contacto }}</td>
+        <td>{{ doc.fechaCreacion | date: 'short' }}</td>
+        <td>{{ doc.producto }}</td>
+        <td>{{ doc.cantidad }}</td>
+        <td>${{ doc.valorTotal }}</td>
+        <td>{{ doc.formaPago }}</td>
+        <td>
+          <button (click)="descargarPDF(doc.id)">Descargar PDF</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!cargando && documentos.length === 0" class="no-results">
+    No se encontraron facturas.
+  </div>
+</div>

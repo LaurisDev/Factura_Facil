@@ -11,8 +11,8 @@ import { AuthModule } from './auth/auth.module';
 import { FacturasModule } from './facturas/facturas.module';
 import { ProduccionModule } from './produccion/produccion.module';
 import { DocumentosModule } from './documentos/documentos.module';
-import { Factura } from './facturas/entities/factura.entity'; 
-
+import { Factura } from './facturas/entities/factura.entity';
+import { Documento } from './documentos/entities/documento.entity'; // ✅ importa tu entidad
 
 @Module({
   imports: [
@@ -31,11 +31,14 @@ import { Factura } from './facturas/entities/factura.entity';
           username: cfg.get<string>('DB_USER'),
           password: cfg.get<string>('DB_PASS'),
           database: cfg.get<string>('DB_NAME'),
-          entities: [User, Factura],
-          synchronize: true, // SOLO en desarrollo
+          entities: [User, Factura, Documento], // ✅ agrega Documento aquí
+          // alternativa más flexible:
+          // entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          synchronize: true, // ⚠️ solo en desarrollo
           ssl: cfg.get<string>('DB_SSL') === 'true' ? { rejectUnauthorized: false } : undefined,
           logging: true,
-          uuidExtension: 'pgcrypto',  // Usa gen_random_uuid() de pgcrypto para columnas uuid
+          uuidExtension: 'pgcrypto',
+          autoLoadEntities: true, // ✅ opcional pero recomendado
         };
       },
     }),

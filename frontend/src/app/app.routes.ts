@@ -4,6 +4,7 @@
 import { Routes } from '@angular/router';
 import { HomeLanding } from './pages/home-landing/home-landing'; // página principal
 
+
 export const routes: Routes = [
   // Si no hay nada en la URL, muestra la página de inicio
   { path: "", component: HomeLanding },
@@ -20,14 +21,14 @@ export const routes: Routes = [
       import("./pages/login/login").then((m) => m.Login),
   },
 
-  // 🧭 Dashboard principal
+  // Dashboard principal
   {
     path: "dashboard",
     loadComponent: () =>
       import("./pages/dashboard/dashboard").then((m) => m.Dashboard),
   },
 
-  // 📄 Secciones del dashboard
+  // Secciones del dashboard
   {
     path: "facturas",
     loadComponent: () =>
