@@ -16,7 +16,6 @@ export class Documentos {
   cargando = false;
   error: string | null = null;
 
-  // Usar el proxy de Angular en desarrollo o la ruta relativa para producción
   // El proxy (`/api`) está configurado para redirigir a http://localhost:3000
   apiUrl = '/api/facturas';
 
