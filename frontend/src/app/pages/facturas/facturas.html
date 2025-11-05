@@ -1,8 +1,6 @@
 <header class="navbar">
   <a class="brand" routerLink="/">Factura Fácil</a>
-  <nav>
-    <a routerLink="/facturas">Listado</a>
-  </nav>
+
 </header>
 
 <main class="page">
@@ -70,12 +68,19 @@
     </div>
 
     <div class="actions">
-        <button 
+      <button 
         class="btn primary" 
         type="submit" 
         [disabled]="form.invalid"
         [class.btn-disabled]="form.invalid">
         Guardar
+      </button>
+
+      <button 
+        class="btn primary" 
+        type="button"
+        routerLink="/produccion">
+        Ver facturas
       </button>
     </div>
 

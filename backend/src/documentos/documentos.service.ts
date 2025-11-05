@@ -6,7 +6,7 @@ import { CreateDocumentoDto } from './dto/create-documento.dto';
 import { UpdateDocumentoDto } from './dto/update-documento.dto';
 import { Factura } from '../facturas/entities/factura.entity';
 import { Response } from 'express';
-import * as PDFDocument from 'pdfkit';
+import PDFDocument from 'pdfkit';
 
 @Injectable()
 export class DocumentosService {
