@@ -51,44 +51,104 @@ export class FacturasService {
     });
   }
 
-  // 🔹 Descargar factura como PDF
+  // === Descargar factura PDF con estilo mejorado ===
   async descargarPDF(id: string, res: Response) {
     const factura = await this.repo.findOneBy({ id });
-    if (!factura) {
-      throw new NotFoundException('Factura no encontrada');
-    }
+    if (!factura) throw new NotFoundException('Factura no encontrada');
 
-    // Crear documento PDF
-    const doc = new PDFDocument();
+    const doc = new PDFDocument({ margin: 50 });
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename=factura-${factura.numero}.pdf`);
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename=factura-${factura.numero}.pdf`,
+    );
     doc.pipe(res);
 
-    // Encabezado
-    doc.fontSize(18).text('Factura', { align: 'center' });
-    doc.moveDown();
+    // === Título ===
+    doc
+      .fontSize(22)
+      .fillColor('#3e2723') // tono café oscuro para título
+      .text('FACTURA', { align: 'right' })
+      .moveDown(0.3);
+    doc
+      .fontSize(10)
+      .fillColor('#795548')
+      .text('FacturaFácil', { align: 'right' })
+      .moveDown(1);
 
-    // Datos de la factura
-    doc.fontSize(12).text(`Número: ${factura.numero}`);
-    doc.text(`Cliente: ${factura.cliente}`);
-    doc.text(`Contacto: ${factura.contacto}`);
-    doc.text(`Fecha: ${factura.fechaCreacion}`);
-    doc.text(`Forma de pago: ${factura.formaPago}`);
-    doc.moveDown();
+    // === Bloque de cabecera (café claro) ===
+    const headerColor = '#d7ccc8'; // café claro
+    doc.rect(50, 115, 500, 80).fill(headerColor).stroke();
+    doc.fillColor('#000').fontSize(11);
 
-    // Detalles del producto
-    doc.text(`Producto: ${factura.producto}`);
-    doc.text(`Descripción: ${factura.descripcion}`);
-    doc.text(`Cantidad: ${factura.cantidad}`);
-    doc.text(`Precio unitario: $${factura.unitPrice}`);
-    doc.text(`Valor total: $${factura.valorTotal}`);
-    doc.moveDown();
+    doc.font('Helvetica-Bold').text('FACTURA PARA:', 60, 130);
+    doc.font('Helvetica').text(`${factura.cliente}`, 60, 145);
+    doc.text(`${factura.contacto}`, 60, 160);
+    doc.text(`Fecha: ${factura.fechaCreacion}`, 60, 175);
 
-    // Pie
-    doc.text('Gracias por su compra.', { align: 'center' });
+    doc.font('Helvetica-Bold').text('DETALLES FACTURA:', 320, 130);
+    doc.font('Helvetica').text(`Número: ${factura.numero}`, 320, 145);
+    doc.text(`Forma de pago: ${factura.formaPago}`, 320, 160);
+
+    // === Detalle de productos ===
+    doc.moveDown(3);
+    doc.font('Helvetica-Bold').text('DETALLE DE PRODUCTOS', 50, 210);
+    doc.moveTo(50, 225).lineTo(550, 225).stroke();
+
+    const tableTop = 240;
+    const col1 = 50;
+    const col2 = 300;
+    const col3 = 370;
+    const col4 = 460;
+
+    doc.fontSize(11).font('Helvetica-Bold');
+    doc.text('DESCRIPCIÓN', col1, tableTop);
+    doc.text('CANT.', col2, tableTop);
+    doc.text('PRECIO U.', col3, tableTop);
+    doc.text('TOTAL', col4, tableTop);
+    doc.moveTo(50, tableTop + 15).lineTo(550, tableTop + 15).stroke();
+
+    // === Producto ===
+    doc.font('Helvetica').fontSize(11);
+    const y = tableTop + 30;
+    doc.text(factura.producto, col1, y);
+    doc.text(factura.cantidad.toString(), col2, y);
+    doc.text(`$${factura.unitPrice}`, col3, y);
+    doc.text(`$${factura.valorTotal}`, col4, y);
+
+    // === Totales ===
+    const subtotal = parseFloat(factura.valorTotal);
+    const impuesto = subtotal * 0.1;
+    const total = subtotal + impuesto;
+
+    doc.moveDown(4);
+    doc.font('Helvetica-Bold');
+    doc.text(`Subtotal:`, 400, y + 60);
+    doc.text(`Impuesto (10%):`, 400, y + 75);
+    doc.text(`TOTAL:`, 400, y + 95);
+    doc.font('Helvetica');
+    doc.text(`$${subtotal.toFixed(2)}`, 500, y + 60);
+    doc.text(`$${impuesto.toFixed(2)}`, 500, y + 75);
+    doc.font('Helvetica-Bold').text(`$${total.toFixed(2)}`, 500, y + 95);
+
+    const bottomLineY = 750;
+    doc
+      .moveTo(50, bottomLineY)
+      .lineTo(550, bottomLineY)
+      .strokeColor('#6F4E37') // café oscuro elegante
+      .stroke();
+
+    // === Mensaje final en la línea roja ===
+    doc.fontSize(10).fillColor('#5d4037'); // café medio
+    doc.text('Gracias por su compra.', 0, bottomLineY - 20, { align: 'center' });
+    doc.text('Factura generada automáticamente por FacturaFácil', 0, bottomLineY - 7, {
+      align: 'center',
+    });
 
     doc.end();
   }
+
+
 
   async findOne(id: string) {
     const factura = await this.repo.findOne({ where: { id } });
