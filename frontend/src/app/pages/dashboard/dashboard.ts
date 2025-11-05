@@ -18,12 +18,6 @@ export class Dashboard {
       link: '/facturas',
     },
     {
-      title: 'Organizar producción',
-      desc: 'Sigue tu producción panelera día a día.',
-      icon: '📋',
-      link: '/produccion',
-    },
-    {
       title: 'Buscar y descargar',
       desc: 'Accede rápidamente a los documentos que necesitas.',
       icon: '🔍',

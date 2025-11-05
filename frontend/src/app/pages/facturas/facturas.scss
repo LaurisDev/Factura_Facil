@@ -8,43 +8,30 @@
 
 /* --- NAVBAR --- */
 .navbar {
+  background: #5b362c;
+  color: white;
+  padding: 1rem 2rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #4b2c24;
-  color: #fff;
-  padding: 14px 24px;
-
-  .brand {
-    color: #fff;
-    font-weight: 700;
-    font-size: 1.2rem;
-    text-decoration: none;
-  }
-
-  nav a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    transition: opacity 0.2s ease-in-out;
-  }
-
-  nav a:hover {
-    opacity: 0.8;
-  }
+  width: 100%;
 }
 
-/* --- PAGE --- */
+.navbar .container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.navbar .brand {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: white;
+  text-decoration: none;
+}
+
 .page {
   max-width: 850px;
   margin: 32px auto;
   padding: 0 20px;
-
-  h1 {
-    font-size: 1.8rem;
-    margin-bottom: 24px;
-    color: #4b2c24;
-  }
 }
 
 /* --- FORM --- */
@@ -82,7 +69,7 @@
 
   input:focus,
   select:focus {
-    border-color: #4b2c24;
+    border-color: #5b362c;
     outline: none;
   }
 
