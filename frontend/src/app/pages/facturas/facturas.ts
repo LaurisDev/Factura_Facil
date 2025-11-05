@@ -1,6 +1,4 @@
-
-
-import { Component, WritableSignal, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -21,7 +19,6 @@ const FORMA_PAGO_OPTIONS = [
   { value: 'EFECTIVO', label: 'Efectivo' },
   { value: 'TRANSFERENCIA', label: 'Transferencia' },
 ] as const;
-
 //-------------------------------------------------------------------
 
 @Component({
@@ -34,6 +31,7 @@ const FORMA_PAGO_OPTIONS = [
 export class CrearFacturaComponent {
   loading = false;
 
+  // 🔹 Estas constantes se cargan inmediatamente, no hay retraso visual
   readonly tipoOptions = TIPO_FACTURA_OPTIONS;
   readonly productoOptions = PRODUCT_OPTIONS;
   readonly formaPagoOptions = FORMA_PAGO_OPTIONS;
@@ -45,15 +43,17 @@ export class CrearFacturaComponent {
     private api: FacturasService,
     private router: Router
   ) {
+
     this.form = this.fb.group({
-      tipo: [null, [Validators.required]],                       
+      tipo: [null, [Validators.required]],
       numero: ['', [Validators.required, Validators.maxLength(50)]],
       cliente: ['', [Validators.required, Validators.maxLength(150)]],
       contacto: ['', [Validators.required, Validators.maxLength(50)]],
-      fechaCreacion: ['', [Validators.required]],                
-      producto: [null, [Validators.required]],                   
+      fechaCreacion: ['', [Validators.required]],
+      producto: [null, [Validators.required]],
+      descripcion: [''],
       cantidad: [1, [Validators.required, Validators.min(1)]],
-      formaPago: [null, [Validators.required]],                  
+      formaPago: [null, [Validators.required]],
     });
   }
 
@@ -78,13 +78,13 @@ export class CrearFacturaComponent {
     }
 
     this.loading = true;
- 
+
     const payload: CreateFacturaDto = {
       tipo: this.form.value.tipo as 'FV-1' | 'FV-2',
       numero: this.form.value.numero!,
       cliente: this.form.value.cliente!,
       contacto: this.form.value.contacto!,
-      fechaCreacion: this.form.value.fechaCreacion!, // YYYY-MM-DD
+      fechaCreacion: this.form.value.fechaCreacion!,
       producto: this.form.value.producto as 'CAJA_BUEN_SABOR' | 'CAJA_BUEN_DECANA',
       descripcion: this.form.value.descripcion || undefined,
       cantidad: this.form.value.cantidad!,
@@ -94,8 +94,8 @@ export class CrearFacturaComponent {
     this.api.createFactura(payload).subscribe({
       next: (facturaCreada) => {
         this.loading = false;
-        alert(`Factura creada \nTotal: ${facturaCreada?.valorTotal ?? '(sin total)'}`);
-        this.router.navigateByUrl('/facturas'); 
+        alert(`Factura creada ✅\nTotal: ${facturaCreada?.valorTotal ?? '(sin total)'}`);
+        this.router.navigateByUrl('/facturas');
       },
       error: (err) => {
         this.loading = false;

@@ -1,1 +1,55 @@
-<p>produccion works!</p>
+<div class="produccion-container">
+  <h2>Organizar Producción</h2>
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <label>Fecha:</label>
+    <input type="date" formControlName="fecha" />
+
+    <label>Producto:</label>
+    <select formControlName="producto">
+      <option value="">-- Selecciona un producto --</option>
+      <option value="CAJA_BUEN_SABOR">Caja Buen Sabor</option>
+      <option value="CAJA_BUEN_DECANA">Caja Buen de Caña</option>
+    </select>
+
+    <label>Cantidad:</label>
+    <input type="number" formControlName="cantidad" />
+
+    <label>Unidad:</label>
+    <input type="text" formControlName="unidad" />
+
+    <label>Observaciones:</label>
+    <textarea formArrayName="observaciones"></textarea>
+
+    <button type="submit">Guardar</button>
+  </form>
+
+  <div class="table-container">
+    <h3>Lista de Producciones</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Unidad</th>
+          <th>Observaciones</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of list">
+          <td>{{ item.fecha }}</td>
+          <td>{{ item.producto }}</td>
+          <td>{{ item.cantidad }}</td>
+          <td>{{ item.unidad }}</td>
+          <td>{{ item.observaciones }}</td>
+          <td>
+            <button (click)="edit(item)">Editar</button>
+            <button (click)="delete(item.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

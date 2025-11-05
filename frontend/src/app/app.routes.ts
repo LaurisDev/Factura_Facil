@@ -38,7 +38,7 @@ export const routes: Routes = [
   {
     path: "produccion",
     loadComponent: () =>
-      import("./pages/produccion/produccion").then((m) => m.Produccion),
+      import("./pages/produccion/produccion").then((m) => m.ProduccionComponent),
   },
 
   {

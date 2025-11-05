@@ -13,6 +13,7 @@ import { ProduccionModule } from './produccion/produccion.module';
 import { DocumentosModule } from './documentos/documentos.module';
 import { Factura } from './facturas/entities/factura.entity';
 import { Documento } from './documentos/entities/documento.entity'; // ✅ importa tu entidad
+import { Produccion } from './produccion/entities/produccion.entity';
 
 @Module({
   imports: [
@@ -31,14 +32,12 @@ import { Documento } from './documentos/entities/documento.entity'; // ✅ impor
           username: cfg.get<string>('DB_USER'),
           password: cfg.get<string>('DB_PASS'),
           database: cfg.get<string>('DB_NAME'),
-          entities: [User, Factura, Documento], // ✅ agrega Documento aquí
-          // alternativa más flexible:
-          // entities: [__dirname + '/**/*.entity{.ts,.js}'],
-          synchronize: true, // ⚠️ solo en desarrollo
+          entities: [User, Factura, Documento, Produccion], // ✅ agrega Documento aquí
+          synchronize: true, // solo en desarrollo
           ssl: cfg.get<string>('DB_SSL') === 'true' ? { rejectUnauthorized: false } : undefined,
           logging: true,
           uuidExtension: 'pgcrypto',
-          autoLoadEntities: true, // ✅ opcional pero recomendado
+          autoLoadEntities: true, 
         };
       },
     }),

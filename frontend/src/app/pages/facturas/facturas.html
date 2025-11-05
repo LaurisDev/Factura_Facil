@@ -1,13 +1,14 @@
 <header class="navbar">
   <a class="brand" routerLink="/">Factura Fácil</a>
-  <nav><a routerLink="/facturas">Listado</a></nav>
+  <nav>
+    <a routerLink="/facturas">Listado</a>
+  </nav>
 </header>
 
 <main class="page">
   <h1>Nueva factura</h1>
 
   <form [formGroup]="form" (ngSubmit)="submit()" class="form">
-
     <div class="grid">
       <label>
         <span>Tipo *</span>
@@ -19,17 +20,17 @@
 
       <label>
         <span>Número *</span>
-        <input type="text" formControlName="numero" />
+        <input type="text" formControlName="numero" placeholder="Ej: 000123" />
       </label>
 
       <label>
         <span>Cliente *</span>
-        <input type="text" formControlName="cliente" />
+        <input type="text" formControlName="cliente" placeholder="Nombre del cliente" />
       </label>
 
       <label>
         <span>Contacto *</span>
-        <input type="text" formControlName="contacto" />
+        <input type="text" formControlName="contacto" placeholder="Ej: 3001234567" />
       </label>
 
       <label>
@@ -41,15 +42,13 @@
         <span>Producto *</span>
         <select formControlName="producto">
           <option [ngValue]="null" disabled>Seleccione...</option>
-          <option *ngFor="let p of productoOptions" [value]="p.value">
-            {{ p.label }}
-          </option>
+          <option *ngFor="let p of productoOptions" [value]="p.value">{{ p.label }}</option>
         </select>
       </label>
 
       <label class="col-span-2">
         <span>Descripción</span>
-        <input type="text" formControlName="descripcion" />
+        <input type="text" formControlName="descripcion" placeholder="Detalles adicionales (opcional)" />
       </label>
 
       <label>
@@ -66,11 +65,19 @@
       </label>
     </div>
 
-    <!-- Solo texto, sin cálculos en el front -->
     <div class="totales">
-      El total será calculado por el servidor al guardar.
+      💡 El total será calculado automáticamente al guardar la factura.
     </div>
 
-    <button class="btn" type="submit" [disabled]="loading || form.invalid">Guardar</button>
+    <div class="actions">
+        <button 
+        class="btn primary" 
+        type="submit" 
+        [disabled]="form.invalid"
+        [class.btn-disabled]="form.invalid">
+        Guardar
+      </button>
+    </div>
+
   </form>
 </main>

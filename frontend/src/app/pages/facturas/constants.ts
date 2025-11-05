@@ -1,0 +1,4 @@
+export enum Producto {
+  CAJA_BUEN_SABOR = 'CAJA_BUEN_SABOR',
+  CAJA_BUEN_DECANA = 'CAJA_BUEN_DECANA'
+}
