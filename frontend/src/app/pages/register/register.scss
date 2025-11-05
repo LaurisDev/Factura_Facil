@@ -47,20 +47,40 @@
   }
 }
 
+/* === NAVBAR === */
 .navbar {
-  background: #5a3b2e;
+  background: #5a3b2e; 
   padding: 10px 20px;
   position: fixed;
-  top: 0; left: 0; width: 100%; z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
 }
+
 .navbar .container {
   margin: 0 auto;
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   justify-content: space-between;
+  max-width: 1200px;
 }
-.navbar .brand { 
-  color: #fff; 
-  font-size: 24px; 
-  text-decoration: none; 
+
+.navbar .brand {
+  color: #ffffff;
+  font-size: 26px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  margin-left: 1.5rem;
+  transition: 0.3s;
+}
+
+.navbar nav a:hover {
+  text-decoration: underline;
 }

@@ -52,7 +52,6 @@ export class Documentos {
   }
 
   descargarPDF(id: string) {
-    // 🔹 Endpoint de descarga de facturas
     this.http.get(`${this.apiUrl}/descargar/${id}`, { responseType: 'blob' }).subscribe({
       next: (blob) => {
         const url = window.URL.createObjectURL(blob);

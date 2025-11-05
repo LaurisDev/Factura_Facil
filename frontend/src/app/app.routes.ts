@@ -2,11 +2,11 @@
 // En Angular, las rutas determinan qué componente se muestra dependiendo de la dirección (path) que el usuario visite en el navegador.
 
 import { Routes } from '@angular/router';
-import { HomeLanding } from './pages/home-landing/home-landing'; // página principal
+import { HomeLanding } from './pages/home-landing/home-landing'; // pag principal
 
 
 export const routes: Routes = [
-  // Si no hay nada en la URL, muestra la página de inicio
+  // Si no hay nada en la URL, muestra la pag de inicio
   { path: "", component: HomeLanding },
 
   {

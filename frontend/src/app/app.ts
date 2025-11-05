@@ -4,11 +4,10 @@ import { HomeLanding } from './pages/home-landing/home-landing';
 
 @Component({
   selector: 'app-root',
-  // 👇 IMPORTANTE: importar RouterOutlet
   imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  standalone: true, // si tu app raíz es standalone
+  standalone: true, 
 })
 export class App {
   protected readonly title = signal('frontend');

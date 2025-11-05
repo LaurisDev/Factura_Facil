@@ -43,7 +43,7 @@ export class Login {
 
         alert('Inicio de sesión exitoso ✅');
 
-        // 🔁 Redirigimos al dashboard
+        // Redirigimos al dashboard
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {

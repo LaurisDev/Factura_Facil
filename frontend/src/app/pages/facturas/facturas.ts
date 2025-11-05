@@ -31,7 +31,7 @@ const FORMA_PAGO_OPTIONS = [
 export class CrearFacturaComponent {
   loading = false;
 
-  // 🔹 Estas constantes se cargan inmediatamente, no hay retraso visual
+  //Estas constantes se cargan inmediatamente
   readonly tipoOptions = TIPO_FACTURA_OPTIONS;
   readonly productoOptions = PRODUCT_OPTIONS;
   readonly formaPagoOptions = FORMA_PAGO_OPTIONS;

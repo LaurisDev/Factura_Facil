@@ -5,6 +5,7 @@ body {
   background: #ffffff;
 }
 
+/* === NAVBAR === */
 .navbar {
   background: #5a3b2e; 
   padding: 10px 20px;
@@ -12,6 +13,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 100;
 }
 
 .navbar .container {
@@ -19,23 +21,32 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-width: 1200px;
 }
 
 .navbar .brand {
   color: #ffffff;
   font-size: 26px;
   text-decoration: none;
-  margin: 8px;
+  font-weight: bold;
 }
 
-.navbar .menu {
-  display: flex;
+.navbar nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  margin-left: 1.5rem;
+  transition: 0.3s;
 }
 
+.navbar nav a:hover {
+  text-decoration: underline;
+}
 
+/* === LANDING === */
 .landing {
   max-width: 1200px;
-  margin: 60px auto 40px; 
+  margin: 80px auto 40px; 
   padding: 0 20px;
   text-align: center;
 }
@@ -104,6 +115,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
 }
 
 .landing .features .grid .card {

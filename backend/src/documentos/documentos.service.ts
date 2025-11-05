@@ -27,7 +27,7 @@ export class DocumentosService {
     return await this.documentosRepository.find();
   }
 
-  // ✅ Buscar documentos (en realidad facturas)
+  // Buscar documentos (en realidad facturas)
   async buscar(query: string) {
     if (!query) return [];
 
@@ -54,7 +54,7 @@ export class DocumentosService {
     await this.documentosRepository.delete(id);
   }
 
-  // --- Descargar como PDF ---
+  // -descargar pdf
   async descargarPDF(id: string, res: Response) {
     const factura = await this.facturasRepository.findOne({ where: { id } });
     if (!factura) throw new NotFoundException('Factura no encontrada');

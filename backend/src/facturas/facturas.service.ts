@@ -51,7 +51,7 @@ export class FacturasService {
     });
   }
 
-  // === Descargar factura PDF con estilo mejorado ===
+  // =descargar pdf
   async descargarPDF(id: string, res: Response) {
     const factura = await this.repo.findOneBy({ id });
     if (!factura) throw new NotFoundException('Factura no encontrada');
@@ -64,10 +64,10 @@ export class FacturasService {
     );
     doc.pipe(res);
 
-    // === Título ===
+    // titulo
     doc
       .fontSize(22)
-      .fillColor('#3e2723') // tono café oscuro para título
+      .fillColor('#3e2723') 
       .text('FACTURA', { align: 'right' })
       .moveDown(0.3);
     doc
@@ -76,8 +76,8 @@ export class FacturasService {
       .text('FacturaFácil', { align: 'right' })
       .moveDown(1);
 
-    // === Bloque de cabecera (café claro) ===
-    const headerColor = '#d7ccc8'; // café claro
+    
+    const headerColor = '#d7ccc8'; 
     doc.rect(50, 115, 500, 80).fill(headerColor).stroke();
     doc.fillColor('#000').fontSize(11);
 
@@ -90,7 +90,7 @@ export class FacturasService {
     doc.font('Helvetica').text(`Número: ${factura.numero}`, 320, 145);
     doc.text(`Forma de pago: ${factura.formaPago}`, 320, 160);
 
-    // === Detalle de productos ===
+    // detalle de producto
     doc.moveDown(3);
     doc.font('Helvetica-Bold').text('DETALLE DE PRODUCTOS', 50, 210);
     doc.moveTo(50, 225).lineTo(550, 225).stroke();
@@ -108,7 +108,7 @@ export class FacturasService {
     doc.text('TOTAL', col4, tableTop);
     doc.moveTo(50, tableTop + 15).lineTo(550, tableTop + 15).stroke();
 
-    // === Producto ===
+    //producto
     doc.font('Helvetica').fontSize(11);
     const y = tableTop + 30;
     doc.text(factura.producto, col1, y);
@@ -116,7 +116,7 @@ export class FacturasService {
     doc.text(`$${factura.unitPrice}`, col3, y);
     doc.text(`$${factura.valorTotal}`, col4, y);
 
-    // === Totales ===
+    // totales
     const subtotal = parseFloat(factura.valorTotal);
     const impuesto = subtotal * 0.1;
     const total = subtotal + impuesto;
@@ -135,11 +135,11 @@ export class FacturasService {
     doc
       .moveTo(50, bottomLineY)
       .lineTo(550, bottomLineY)
-      .strokeColor('#6F4E37') // café oscuro elegante
+      .strokeColor('#6F4E37') 
       .stroke();
 
-    // === Mensaje final en la línea roja ===
-    doc.fontSize(10).fillColor('#5d4037'); // café medio
+    // mensaje final de la factura 
+    doc.fontSize(10).fillColor('#5d4037'); 
     doc.text('Gracias por su compra.', 0, bottomLineY - 20, { align: 'center' });
     doc.text('Factura generada automáticamente por FacturaFácil', 0, bottomLineY - 7, {
       align: 'center',
